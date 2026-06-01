@@ -1,7 +1,16 @@
 import streamlit as st
+import base64
 
 # --- 1. CẤU HÌNH TRANG ---
 st.set_page_config(page_title="Cuộc thi VHNT Lai Châu 2026", page_icon="🏔️", layout="wide")
+
+# --- Hàm hỗ trợ đọc ảnh cục bộ thành Base64 ---
+def doc_anh_base64(duong_dan_anh):
+    try:
+        with open(duong_dan_anh, "rb") as img_file:
+            return base64.b64encode(img_file.read()).decode()
+    except FileNotFoundError:
+        return None
 
 # --- 2. TÙY CHỈNH GIAO DIỆN CHUYÊN NGHIỆP VÀ TĂNG CỠ CHỮ (CSS) ---
 st.markdown("""
@@ -78,6 +87,24 @@ st.markdown("""
         line-height: 1.4 !important;
         color: #003366 !important;
     }
+    
+    /* --- HỆ THỐNG CSS CHẠY ẢNH TỰ ĐỘNG THÔNG THẢ (60 GIÂY) --- */
+    .khung-chay-anh {
+        width: 100%; overflow: hidden; background-color: #f8fafc;
+        padding: 10px 0; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 15px;
+    }
+    .duong-chay-anh {
+        display: flex; width: max-content;
+        animation: chay-tu-trai-qua-phai 60s linear infinite;
+    }
+    .duong-chay-anh img {
+        height: 150px; margin: 0 8px; border-radius: 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1); object-fit: cover;
+    }
+    @keyframes chay-tu-trai-qua-phai {
+        0% { transform: translateX(-50%); }
+        100% { transform: translateX(0); }
+    }
     </style>
     """, unsafe_allow_html=True)
 
@@ -131,7 +158,7 @@ if st.session_state.bai_viet_hien_tai is not None:
     if ma_bai == "tin_chinh":
         st.image("anh_khai_mac.jpg", use_container_width=True)
         
-    # ĐÃ ĐỔI SANG THỂ HTML CÓ PRE-WRAP ĐỂ GIỮ NGUYÊN TOÀN BỘ CÁC DẤU XUỐNG DÒNG CỦA BÀI VIẾT
+    # ĐÃ ĐỔI SANG THẺ HTML CÓ PRE-WRAP ĐỂ GIỮ NGUYÊN TOÀN BỘ CÁC DẤU XUỐNG DÒNG CỦA BÀI VIẾT
     st.markdown(f"""
         <div style="white-space: pre-wrap; font-size: 17px; line-height: 1.65; color: #2d3748;">
             {bai_viet['noi_dung']}
@@ -212,7 +239,7 @@ else:
         st.info("**📌 Tiêu đề Email:** `[Dự thi VHNT Lai Châu] - Thể loại - Tên tác phẩm - Họ tên tác giả` \n\n **📋 Ví dụ:** Dự thi VHNT Lai Châu - Truyện ngắn - Mùa hoa cà - Nguyễn Văn A.")
 
     # ---------------------------------------------------------
-    # CỘT BÊN PHẢI (Video, Thư viện ảnh Native, Lộ trình, Giải thưởng)
+    # CỘT BÊN PHẢI (Video, Thư viện ảnh vòng lặp, Lộ trình, Giải thưởng)
     # ---------------------------------------------------------
     with col_right:
         
@@ -224,26 +251,33 @@ else:
         """, unsafe_allow_html=True)
         st.video("https://youtu.be/SvYvffwAvYY")
 
-        # MỤC 2: THƯ VIỆN HÌNH ẢNH NATIVE CHỐNG SẬP ĐIỆN THOẠI 100%
+        # MỤC 2: THƯ VIỆN HÌNH ẢNH (HỆ THỐNG VÒNG LẶP DỄ THÊM ẢNH)
         st.markdown("<div class='tieu-de-muc'>📸 THƯ VIỆN HÌNH ẢNH GỢI CẢM HỨNG</div>", unsafe_allow_html=True)
         
         tab_anh, tab_clip = st.tabs(["Thư viện ảnh", "Clip Tư liệu"])
         
         with tab_anh:
-            so_luong_anh = 12  # Đặt số lượng ảnh thực tế của anh (12 hoặc 20 ảnh đều chạy mượt)
+            so_luong_anh = 12 
             
-            # Sử dụng hệ thống cột native của Streamlit để xếp ảnh vuông vắn, siêu nhẹ
-            # Duyệt qua danh sách, mỗi hàng hiển thị 3 ảnh song song trên máy tính
-            for i in range(1, so_luong_anh + 1, 3):
-                cols = st.columns(3)
-                for idx, col in enumerate(cols):
-                    if i + idx <= so_luong_anh:
-                        with col:
-                            try:
-                                st.image(f"thuvien_{i+idx}.jpg", use_container_width=True)
-                            except FileNotFoundError:
-                                # Ảnh dự phòng nếu thiếu file cục bộ
-                                st.image("http://googleusercontent.com/image_collection/image_retrieval/3705218641779458257", use_container_width=True)
+            chuoi_the_anh = ""
+            for i in range(1, so_luong_anh + 1):
+                b64 = doc_anh_base64(f"thuvien_{i}.jpg")
+                if b64:
+                    src = f"data:image/jpeg;base64,{b64}"
+                else:
+                    src = "http://googleusercontent.com/image_collection/image_retrieval/3705218641779458257" if i % 2 != 0 else "http://googleusercontent.com/image_collection/image_retrieval/5688414943745134180"
+                
+                chuoi_the_anh += f'<img src="{src}">'
+            
+            chuoi_anh_chay = chuoi_the_anh + chuoi_the_anh
+            
+            st.markdown(f"""
+            <div class="khung-chay-anh">
+                <div class="duong-chay-anh">
+                    {chuoi_anh_chay}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
         with tab_clip:
             st.subheader("Phóng sự tư liệu phát động sáng tác")

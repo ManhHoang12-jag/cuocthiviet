@@ -88,7 +88,7 @@ st.markdown("""
         color: #003366 !important;
     }
     
-    /* --- HỆ THỐNG CSS CHẠY ẢNH TỰ ĐỘNG THÔNG THẢ --- */
+    /* --- HỆ THỐNG CSS CHẠY ẢNH TỰ ĐỘNG THÔNG THẢ (60 GIÂY) --- */
     .khung-chay-anh {
         width: 100%; overflow: hidden; background-color: #f8fafc;
         padding: 10px 0; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 15px;
@@ -122,16 +122,12 @@ CSDL_BAI_VIET = {
     },
     "tin_phu_1": {
         "tieu_de": "Hướng dẫn chi tiết cách thức gửi bài dự thi trực tuyến đạt chuẩn.",
-        "noi_dung": "Các tác giả lưu ý khi gửi bài qua Email cá nhân cần đính kèm file định dạng .docx đối với văn học, hoặc file ảnh gốc chất lượng cao đối với nhiếp ảnh. Nội dung thư phải ghi đầy đủ thông tin liên hệ theo đúng biểu mẫu hướng dẫn tại mục Gửi bài dự thi ở cuối trang chủ. Vui lòng không nén file quá nặng hoặc gửi link hỏng."
+        "noi_dung": "Các tác giả lưu ý khi gửi bài qua Email cá nhân cần đính kèm file định dạng .docx hoặc PDF. Nội dung thư phải ghi đầy đủ thông tin liên hệ theo đúng biểu mẫu hướng dẫn tại mục Gửi bài dự thi ở cuối trang chủ. Vui lòng không nén file quá nặng hoặc gửi link hỏng."
     },
     "tin_phu_2": {
         "tieu_de": "Phát động các tác giả thâm nhập thực tế tại các xã biên giới.",
-        "noi_dung": "Ban Tổ chức dự kiến phối hợp tổ chức các chuyến đi thâm nhập thực tế tại các xã biên giới, vùng sâu vùng xa trên địa bàn tỉnh Lai Châu nhằm hỗ trợ tạo nguồn tư liệu chân thực, sinh động cho các văn nghệ sĩ tìm kiếm chất liệu sáng tác sâu sát với đời sống bà con đồng bào dân tộc."
+        "noi_dung": "Ban Tổ chức dự kiến phối hợp tổ chức các chuyến đi thâm nhập thực tế tại các xã biên giới, vùng sâu vùng xa trên địa bàn tỉnh Lai Châu nhằm hỗ trợ tạo nguồn tư liệu chân thực, sinh động cho các văn nghệ sĩ tìm kiếm chất liệu sáng tác sâu sát with đời sống bà con đồng bào dân tộc."
     },
-    "tin_phu_3": {
-        "tieu_de": "Nhiều tác phẩm chất lượng cao đã gửi về ngay tuần đầu tiên.",
-        "noi_dung": "Tính đến thời điểm hiện tại, Ban thư ký cuộc thi đã ghi nhận nhiều tác phẩm chất lượng gửi về từ các tác giả trong và ngoài tỉnh, thể hiện sự quan tâm lớn đối với đề tài thiên nhiên, con người Lai Châu. Các mảng văn học (bút ký) và nhiếp ảnh đang chiếm số lượng áp đảo."
-    }
 }
 
 # --- 4. HEADER: BANNER ĐẦU TRANG ---
@@ -162,7 +158,12 @@ if st.session_state.bai_viet_hien_tai is not None:
     if ma_bai == "tin_chinh":
         st.image("anh_khai_mac.jpg", use_container_width=True)
         
-    st.write(bai_viet['noi_dung'])
+    # ĐÃ ĐỔI SANG THẺ HTML CÓ PRE-WRAP ĐỂ GIỮ NGUYÊN TOÀN BỘ CÁC DẤU XUỐNG DÒNG CỦA BÀI VIẾT
+    st.markdown(f"""
+        <div style="white-space: pre-wrap; font-size: 17px; line-height: 1.65; color: #2d3748;">
+            {bai_viet['noi_dung']}
+        </div>
+    """, unsafe_allow_html=True)
     st.write("")
 
 # TÌNH HUỐNG B: TRANG CHỦ CHÍNH BỐ CỤC SONG SONG ĐỐI XỨNG (50% - 50%)
@@ -187,36 +188,42 @@ else:
             st.session_state.bai_viet_hien_tai = "tin_chinh"
             st.rerun()
             
-        st.write("Sáng nay, Ban Tổ chức đã chính thức phát động cuộc thi nhằm khơi dậy nguồn cảm hứng sáng tác, tôn vinh vẻ đẹp thiên nhiên, con người và bản sắc văn hóa các dân tộc tỉnh Lai Châu...")
+        st.write("Sáng nay, ngày 02/6 Ban Tổ chức cuộc thi đã chính thức phát động cuộc thi nhằm khơi dậy nguồn cảm hứng sáng tác, tôn vinh vẻ đẹp thiên nhiên, con người và bản sắc văn hóa các dân tộc tỉnh Lai Châu...")
         
-        st.markdown("<p style='font-weight:bold; color:#555; margin-top:15px; margin-bottom:5px; font-size:17px;'>CÁC TIN KHÁC KHÔNG NÊN BỎ QUA:</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-weight:bold; color:#555; margin-top:15px; margin-bottom:5px; font-size:17px;'>CÁC TIN KHÁC:</p>", unsafe_allow_html=True)
         if st.button(f"■ {CSDL_BAI_VIET['tin_phu_1']['tieu_de']}", key="btn_tp1"):
             st.session_state.bai_viet_hien_tai = "tin_phu_1"
             st.rerun()
         if st.button(f"■ {CSDL_BAI_VIET['tin_phu_2']['tieu_de']}", key="btn_tp2"):
             st.session_state.bai_viet_hien_tai = "tin_phu_2"
             st.rerun()
-        if st.button(f"■ {CSDL_BAI_VIET['tin_phu_3']['tieu_de']}", key="btn_tp3"):
-            st.session_state.bai_viet_hien_tai = "tin_phu_3"
-            st.rerun()
 
-        # MỤC 2: VĂN BẢN CHỈ ĐẠO & TÀI LIỆU
+        # MỤC 2: VĂN BẢN CHỈ ĐẠO & TÀI LIỆU (Đã cập nhật cấu trúc 3 cột kèm mã QR)
         st.markdown("<div class='tieu-de-muc'>📜 VĂN BẢN CHỈ ĐẠO & TÀI LIỆU CUỘC THI</div>", unsafe_allow_html=True)
-        col_vb1, col_vb2 = st.columns(2)
+        col_vb1, col_vb2, col_vb3 = st.columns([3.5, 3.5, 3])
+        
         with col_vb1:
             st.subheader("1. Thể lệ cuộc thi")
-            try:
-                with open("The_le_Cuoc_thi.pdf", "rb") as file:
-                    st.download_button(label="📥 Tải về Thể lệ (PDF)", data=file, file_name="The_le_Cuoc_thi_VHNT_Lai_Chau_2026.pdf", mime="application/pdf")
-            except FileNotFoundError:
-                st.warning("📌 Thiếu file 'The_le_Cuoc_thi.pdf'.")
+            st.link_button(
+                label="📥 Xem & Tải Thể lệ (PDF)", 
+                url="https://drive.google.com/file/d/1FhYDCGM6QW8ZgSu4F4Qnlm3GYNO0i3WC/view?usp=drive_link", 
+                use_container_width=True
+            )
+            
         with col_vb2:
             st.subheader("2. Kế hoạch tổ chức")
+            st.link_button(
+                label="📥 Xem & Tải Kế hoạch (PDF)", 
+                url="https://drive.google.com/file/d/1kbL1zyun3czW1xcOkQPU-_m_Nk4kozHh/view?usp=drive_link", 
+                use_container_width=True
+            )
+            
+        with col_vb3:
+            st.subheader("3. Mã QR tài liệu")
             try:
-                with open("Ke_hoach_to_chuc.pdf", "rb") as file:
-                    st.download_button(label="📥 Tải về Kế hoạch (PDF)", data=file, file_name="Ke_hoach_to_chuc.pdf", mime="application/pdf")
+                st.image("qr_tailieu.jpg", use_container_width=True)
             except FileNotFoundError:
-                st.warning("📌 Thiếu file 'Ke_hoach_to_chuc.pdf'.")
+                st.warning("📌 Thiếu file 'qr_tailieu.jpg'.")
 
         # MỤC 3: HƯỚNG DẪN GỬI BÀI DỰ THI
         st.markdown("<div class='tieu-de-muc'>📩 HƯỚNG DẪN GỬI TÁC PHẨM DỰ THI</div>", unsafe_allow_html=True)
@@ -250,7 +257,6 @@ else:
         tab_anh, tab_clip = st.tabs(["Thư viện ảnh", "Clip Tư liệu"])
         
         with tab_anh:
-            # Sửa số lượng ảnh tương ứng với các file ảnh thật có trong thư mục (thuvien_1.jpg, thuvien_2.jpg,...)
             so_luong_anh = 12 
             
             chuoi_the_anh = ""

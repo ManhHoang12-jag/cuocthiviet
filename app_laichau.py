@@ -114,6 +114,7 @@ CSDL_BAI_VIET = {
         "tieu_de": "Phát động các tác giả thâm nhập thực tế tại các xã biên giới.",
         "noi_dung": "Ban Tổ chức dự kiến phối hợp tổ chức các chuyến đi thâm nhập thực tế tại các xã biên giới, vùng sâu vùng xa trên địa bàn tỉnh Lai Châu nhằm hỗ trợ tạo nguồn tư liệu chân thực, sinh động cho các văn nghệ sĩ tìm kiếm chất liệu sáng tác sâu sát với đời sống bà con đồng bào dân tộc."
     },
+    
 }
 
 # --- 4. HEADER: BANNER ĐẦU TRANG ---

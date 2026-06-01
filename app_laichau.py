@@ -28,11 +28,12 @@ st.markdown("""
         visibility: hidden !important;
     }
     
-    /* KHỬ KHOẢNG TRẮNG THỪA Ở ĐẦU TRANG 
-       Ép khung chứa nội dung đẩy sát lên phía trên mép trình duyệt
+    /* KHỬ TRIỆT ĐỂ KHOẢNG TRẮNG THỪA Ở ĐẦU TRANG (ĐÃ ÉP XUỐNG 0REM TUYỆT ĐỐI)
+       Quét sạch khoảng trống của cả lớp cũ lẫn lớp cấu trúc mới trong Streamlit
     */
-    div[data-testid="stAppViewContainer"] .main .block-container {
-        padding-top: 1rem !important;
+    div[data-testid="stAppViewContainer"] .main .block-container,
+    [data-testid="stMainBlockContainer"] {
+        padding-top: 0rem !important;
         margin-top: 0px !important;
     }
     
@@ -87,7 +88,7 @@ st.markdown("""
         color: #003366 !important;
     }
     
-    /* --- HỆ THỐNG CSS CHẠY ẢNH TỰ ĐỘNG THÔNG THẢ (18 GIÂY) --- */
+    /* --- HỆ THỐNG CSS CHẠY ẢNH TỰ ĐỘNG THÔNG THẢ --- */
     .khung-chay-anh {
         width: 100%; overflow: hidden; background-color: #f8fafc;
         padding: 10px 0; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 15px;

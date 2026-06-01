@@ -81,7 +81,7 @@ st.markdown("""
     }
     .duong-chay-anh {
         display: flex; width: max-content;
-        animation: chay-tu-trai-qua-phai 28s linear infinite;
+        animation: chay-tu-trai-qua-phai 59s linear infinite;
     }
     .duong-chay-anh img {
         height: 150px; margin: 0 8px; border-radius: 6px;

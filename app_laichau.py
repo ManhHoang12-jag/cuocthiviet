@@ -257,7 +257,7 @@ else:
         tab_anh, tab_clip = st.tabs(["Thư viện ảnh", "Clip Tư liệu"])
         
         with tab_anh:
-            so_luong_anh = 12 
+            so_luong_anh = 20 
             
             chuoi_the_anh = ""
             for i in range(1, so_luong_anh + 1):

@@ -28,6 +28,14 @@ st.markdown("""
         visibility: hidden !important;
     }
     
+    /* KHỬ KHOẢNG TRẮNG THỪA Ở ĐẦU TRANG 
+       Ép khung chứa nội dung đẩy sát lên phía trên mép trình duyệt
+    */
+    div[data-testid="stAppViewContainer"] .main .block-container {
+        padding-top: 1rem !important;
+        margin-top: 0px !important;
+    }
+    
     /* Cấu hình font chữ hệ thống hiện đại, dễ đọc và tăng cỡ chữ cơ bản */
     html, body, [data-testid="stAppViewContainer"], .stApp {
         font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;

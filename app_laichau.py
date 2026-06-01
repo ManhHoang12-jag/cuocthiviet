@@ -74,14 +74,14 @@ st.markdown("""
         color: #003366 !important;
     }
     
-    /* --- HỆ THỐNG CSS CHẠY ẢNH TỰ ĐỘNG THÔNG THẢ (18 GIÂY) --- */
+    /* --- HỆ THỐNG CSS CHẠY ẢNH TỰ ĐỘNG THÔNG THẢ (28 GIÂY) --- */
     .khung-chay-anh {
         width: 100%; overflow: hidden; background-color: #f8fafc;
         padding: 10px 0; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 15px;
     }
     .duong-chay-anh {
         display: flex; width: max-content;
-        animation: chay-tu-trai-qua-phai 18s linear infinite;
+        animation: chay-tu-trai-qua-phai 28s linear infinite;
     }
     .duong-chay-anh img {
         height: 150px; margin: 0 8px; border-radius: 6px;

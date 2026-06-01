@@ -15,11 +15,16 @@ def doc_anh_base64(duong_dan_anh):
 # --- 2. TÙY CHỈNH GIAO DIỆN CHUYÊN NGHIỆP VÀ TĂNG CỠ CHỮ (CSS) ---
 st.markdown("""
     <style>
-    /* ẨN TOÀN BỘ THANH ĐẦU TRANG VÀ NÚT DEPLOY MẶC ĐỊNH */
-    header, [data-testid="stHeader"] {
+    /* XÓA BỎ HOÀN TOÀN TẤT CẢ LOGO, MENU, THANH TRANG TRÍ VÀ NÚT DEPLOY CỦA STREAMLIT
+       Giúp giao diện website thuần khiết, trang trọng như một trang báo điện tử chính thống.
+    */
+    header, [data-testid="stHeader"], 
+    footer, 
+    [data-testid="stMainMenu"], 
+    [data-testid="stDecoration"], 
+    [data-testid="stStatusWidget"], 
+    .stDeployButton {
         display: none !important;
-    }
-    footer {
         visibility: hidden !important;
     }
     
@@ -74,14 +79,14 @@ st.markdown("""
         color: #003366 !important;
     }
     
-    /* --- HỆ THỐNG CSS CHẠY ẢNH TỰ ĐỘNG THÔNG THẢ (28 GIÂY) --- */
+    /* --- HỆ THỐNG CSS CHẠY ẢNH TỰ ĐỘNG THÔNG THẢ (18 GIÂY) --- */
     .khung-chay-anh {
         width: 100%; overflow: hidden; background-color: #f8fafc;
         padding: 10px 0; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 15px;
     }
     .duong-chay-anh {
         display: flex; width: max-content;
-        animation: chay-tu-trai-qua-phai 59s linear infinite;
+        animation: chay-tu-trai-qua-phai 18s linear infinite;
     }
     .duong-chay-anh img {
         height: 150px; margin: 0 8px; border-radius: 6px;
@@ -102,7 +107,7 @@ if "bai_viet_hien_tai" not in st.session_state:
 CSDL_BAI_VIET = {
     "tin_chinh": {
         "tieu_de": 'Lễ phát động Cuộc thi sáng tác các tác phẩm văn học nghệ thuật viết về Lai Châu "Lai Châu - Mạch nguồn văn hóa, tiềm năng, động lực phát triển"',
-        "noi_dung": """Sáng nay, Ngày 02/6/2026 Ban Tổ chức Cuộc thi đã chính thức phát động cuộc thi nhằm khơi dậy nguồn cảm hứng sáng tác, tôn vinh vẻ đẹp thiên nhiên, con người và bản sắc văn hóa các dân tộc tỉnh Lai Châu. 
+        "noi_dung": """Sáng nay, Ban Tổ chức đã chính thức phát động cuộc thi nhằm khơi dậy nguồn cảm hứng sáng tác, tôn vinh vẻ đẹp thiên nhiên, con người và bản sắc văn hóa các dân tộc tỉnh Lai Châu. 
         
         Tham dự lễ phát động có đại diện lãnh đạo Tỉnh ủy, Ban Tuyên giáo, Hội Văn học Nghệ thuật tỉnh cùng đông đảo các văn nghệ sĩ, phóng viên báo chí trung ương và địa phương. Cuộc thi được kỳ vọng sẽ tìm kiếm được nhiều tác phẩm đỉnh cao, phản ánh chân thực khát vọng vươn lên, tiềm năng và động lực phát triển của tỉnh trong thời kỳ đổi mới."""
     },
@@ -114,9 +119,9 @@ CSDL_BAI_VIET = {
         "tieu_de": "Phát động các tác giả thâm nhập thực tế tại các xã biên giới.",
         "noi_dung": "Ban Tổ chức dự kiến phối hợp tổ chức các chuyến đi thâm nhập thực tế tại các xã biên giới, vùng sâu vùng xa trên địa bàn tỉnh Lai Châu nhằm hỗ trợ tạo nguồn tư liệu chân thực, sinh động cho các văn nghệ sĩ tìm kiếm chất liệu sáng tác sâu sát với đời sống bà con đồng bào dân tộc."
     },
-   "tin_phu_3": {
+    "tin_phu_3": {
         "tieu_de": "Nhiều tác phẩm chất lượng cao đã gửi về ngay tuần đầu tiên.",
-        "noi_dung": "Tính đến thời điểm hiện tại, Ban thư ký cuộc thi đã ghi nhận many tác phẩm chất lượng gửi về từ các tác giả trong và ngoài tỉnh, thể hiện sự quan tâm lớn đối với đề tài thiên nhiên, con người Lai Châu. Các mảng văn học (bút ký) và nhiếp ảnh đang chiếm số lượng áp đảo."
+        "noi_dung": "Tính đến thời điểm hiện tại, Ban thư ký cuộc thi đã ghi nhận nhiều tác phẩm chất lượng gửi về từ các tác giả trong và ngoài tỉnh, thể hiện sự quan tâm lớn đối với đề tài thiên nhiên, con người Lai Châu. Các mảng văn học (bút ký) và nhiếp ảnh đang chiếm số lượng áp đảo."
     }
 }
 
@@ -237,7 +242,7 @@ else:
         
         with tab_anh:
             # Sửa số lượng ảnh tương ứng với các file ảnh thật có trong thư mục (thuvien_1.jpg, thuvien_2.jpg,...)
-            so_luong_anh = 12 
+            so_luong_anh = 3 
             
             chuoi_the_anh = ""
             for i in range(1, so_luong_anh + 1):

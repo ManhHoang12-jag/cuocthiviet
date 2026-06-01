@@ -237,7 +237,7 @@ else:
         
         with tab_anh:
             # Sửa số lượng ảnh tương ứng với các file ảnh thật có trong thư mục (thuvien_1.jpg, thuvien_2.jpg,...)
-            so_luong_anh = 3 
+            so_luong_anh = 12 
             
             chuoi_the_anh = ""
             for i in range(1, so_luong_anh + 1):
